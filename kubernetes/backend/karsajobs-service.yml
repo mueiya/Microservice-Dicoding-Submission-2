@@ -1,0 +1,24 @@
+# versi pertama dari API Kubernetes
+apiVersion: v1
+# jenis resource, dalam hal ini adalah Service
+kind: Service
+metadata:
+# nama dari servicenya
+  name: karsajobs-service
+  labels:
+    app: karsajobs-backends
+spec:
+  selector:
+    # pilih pod yang diinginkan, dalam hal ini 'app: karsajobs'
+    app: karsajobs
+  ports:
+    # menggunakan TCP sebagai protokol
+    - protocol: TCP
+    # set portnya
+      port: 80
+    # meneruskan ke port 8080 pada pod
+      targetPort: 8080
+    # menentukan custom nodePort
+      nodePort: 30007
+  # menggunakan LoadBalancer
+  type: LoadBalancer
