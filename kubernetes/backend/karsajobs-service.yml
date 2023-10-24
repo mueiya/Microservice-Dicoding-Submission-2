@@ -5,8 +5,10 @@ kind: Service
 metadata:
 # nama dari servicenya
   name: karsajobs-service
+  # Labeling app karsajobs dan tier sebagai backend
   labels:
-    app: karsajobs-backends
+    app: karsajobs
+    tier: backend
 spec:
   selector:
     # pilih pod yang diinginkan, dalam hal ini 'app: karsajobs'
@@ -14,11 +16,9 @@ spec:
   ports:
     # menggunakan TCP sebagai protokol
     - protocol: TCP
-    # set portnya
+    # set port untuk mendengarkan
       port: 80
     # meneruskan ke port 8080 pada pod
       targetPort: 8080
-    # menentukan custom nodePort
-      nodePort: 30007
   # menggunakan LoadBalancer
   type: LoadBalancer

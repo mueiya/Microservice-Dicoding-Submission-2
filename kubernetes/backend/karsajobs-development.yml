@@ -1,34 +1,44 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1 # Versi API yang digunakan
+kind: Deployment # Jenis resource yang digunakan. deployment
 metadata:
-  name: karsajobs-deployment
+  name: karsajobs-deployment # Nama resource
+  labels: # Label yang didefinisikan untuk Deployment ini
+    app: karsajobs # Label "app" dengan nilai "karsajobs"
+    tier: backend # Label "tier" dengan nilai "backend"
 spec:
-  replicas: 3
+  replicas: 1 # Jumlah replika yang diatur sesuai kebutuhan
   selector:
+  # Seleksi berdasarkan label "app" dengan nilai "karsajobs"
+  # dan label "tier" dengan nilai "backend"
     matchLabels:
-      app: karsajobs
+      app: karsajobs  
+      tier: backend 
   template:
     metadata:
+    # Atur label "app" dan "tier" untuk template Pod
       labels:
         app: karsajobs
+        tier: backend
     spec:
       containers:
-        - name: karsajobs
-          image: mueiya/karsajobs:latest
+        - name: karsajobs # Nama container
+          image: ghcr.io/mueiya/karsajobs:latest # Docker image dari github package
           ports:
             - containerPort: 8080
-          env:  # Define environment variables here
+          env:  # ENV untuk konfigurasi MongoDB
             - name: APP_PORT
-              value: "8080"
+              value: "8080" # Mengatur "APP_PORT" dengan nilai "8080"
             - name: MONGO_HOST
               valueFrom:
                 fieldRef:
-                  fieldPath: status.podIP
+                  fieldPath: status.podIP # Mengambil alamat IP Pod saat ini sebagai host MongoDB
+            # Mengambil nama pengguna MongoDB dari "mongo-secret"
             - name: MONGO_USER
               valueFrom:
                 secretKeyRef:
                   name: mongo-secret
                   key: MONGO_ROOT_USERNAME
+            # Mengambil password pengguna MongoDB dari "mongo-secret"
             - name: MONGO_PASS
               valueFrom:
                 secretKeyRef:
