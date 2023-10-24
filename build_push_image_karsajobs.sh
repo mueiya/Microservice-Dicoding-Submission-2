@@ -3,10 +3,12 @@
 # 1. Perintah untuk membuat Docker image dari Dockerfile.
 # Baris ini menggunakan perintah docker build untuk membuat Docker image 
 # dari Dockerfile yang terdapat di direktori saat ini (.). 
-# Image ini kemudian diberi tag mueiya/karsajobs:latest.
-docker build -t mueiya/karsajobs:latest .
+# Image ini kemudian diberi tag karsajobs:latest.
+docker build -t karsajobs:latest .
 
 # 2. Login ke GitHub Packages
+# ubah tag dan nama, sesuai penamaan github package
+docker tag karsajobs:latest ghcr.io/mueiya/karsajobs:latest
 # karena (Personal Access Token) bersifat rahasia, 
 # pastikan untuk menjalankan code dibawah untuk menyimpan PAT dalam ENV
 # export GITHUB_PAT=personal_access_token
