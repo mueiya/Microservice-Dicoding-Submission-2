@@ -1,17 +1,22 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongo-statefulset # Nama StatefulSet
+  name: karsajobs-db
+   labels:
+    app: karsajobs
+    tier: backend
 spec:
-  serviceName: "mongo"
+  serviceName: karsajobs-db
   replicas: 1
   selector:
     matchLabels:
-      app: mongodb
+      app: karsajobs
+      tier: backend
   template:
     metadata:
       labels:
-        app: mongodb
+        app: karsajobs
+        tier: backend
     spec:
       containers:
         - name: mongo
@@ -44,7 +49,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  volumeClaimTemplates:
     - metadata:
         name: config
       spec:
@@ -52,7 +56,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  volumeClaimTemplates:
     - metadata:
         name: credentials
       spec:
