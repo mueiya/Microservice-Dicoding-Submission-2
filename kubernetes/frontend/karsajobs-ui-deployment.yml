@@ -3,25 +3,25 @@ kind: Deployment
 metadata:
   name: karsajobs-ui-deployment # Nama Deployment Kubernetes untuk karsajobs-ui
   labels: # Label yang didefinisikan untuk Deployment ini
-    app: karsajobs # Label "app" dengan nilai "karsajobs-ui"
+    app: karsajobs # Label "app" dengan nilai "karsajobs"
     tier: backend # Label "tier" dengan nilai "frontend"
 spec:
   replicas: 1 # Jumlah replika yang diatur sesuai kebutuhan
   selector:
-  # Seleksi berdasarkan label "app" dengan nilai "karsajobs-ui"
+  # Seleksi berdasarkan label "app" dengan nilai "karsajobs"
   # dan label "tier" dengan nilai "frontend"
     matchLabels:
-      app: karsajobs-ui
+      app: karsajobs
       tier: frontend
   template:
     metadata:
     # Atur label "app" dan "tier" untuk template Pod
       labels:
-        app: karsajobs-ui
+        app: karsajobs
         tier: frontend
     spec:
       containers:
         - name: karsajobs-ui # Nama container
           image: ghcr.io/mueiya/karsajobs-ui:latest # Docker image dari GitHub Package
           ports:
-            - containerPort: 80 # Port yang akan di-expose pada container
+            - containerPort: 8080 # Port yang akan di-expose pada container

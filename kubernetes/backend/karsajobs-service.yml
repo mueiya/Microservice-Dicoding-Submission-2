@@ -17,8 +17,6 @@ spec:
     # menggunakan TCP sebagai protokol
     - protocol: TCP
     # set port untuk mendengarkan
-      port: 80
-    # meneruskan ke port 8080 pada pod
-      targetPort: 8080
+      port: 8080
   # menggunakan LoadBalancer
-  type: LoadBalancer
+  type: NodePort
