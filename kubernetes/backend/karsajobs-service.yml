@@ -18,5 +18,6 @@ spec:
     - protocol: TCP
     # set port untuk mendengarkan
       port: 8080
-  # menggunakan LoadBalancer
+  # menggunakan NodePort
+      nodePort: 30808
   type: NodePort
