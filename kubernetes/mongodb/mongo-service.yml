@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: karsajobs-db
-   labels:
+  name: mongo-service
+  labels:
     app: karsajobs
     tier: backend
 spec:

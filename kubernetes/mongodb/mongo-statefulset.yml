@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: karsajobs-db
-   labels:
+  labels:
     app: karsajobs
     tier: backend
 spec:
@@ -24,42 +24,27 @@ spec:
           ports:
             - containerPort: 27017
           env:
-            - name: MONGO_INITDB_ROOT_USERNAME
-              valueFrom:
-                configMapKeyRef:
-                  name: mongo-configmap
-                  key: MONGO_ROOT_USERNAME
-            - name: MONGO_INITDB_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-secret
-                  key: MONGO_ROOT_PASSWORD
+            - name: MONGO_INITDB_ROOT_USERNAME_FILE
+              value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD_FILE 
+              value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
           volumeMounts:
-            - name: data
+            - name: pv
               mountPath: /data/db
             - name: config
               mountPath: /config
-            - name: credentials
+            - name: secret
               mountPath: /etc/mongo-credentials
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
-    - metadata:
-        name: config
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
-    - metadata:
-        name: credentials
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
+      volumes:
+      - name: pv
+        persistentVolumeClaim:
+          claimName: mongo-pvc
+      - name: config
+        configMap:
+          name: mongo-configmap
+          items:
+            - key: mongo.conf
+              path: mongo.conf
+      - name: secret
+        secret:
+          secretName: mongo-secret
