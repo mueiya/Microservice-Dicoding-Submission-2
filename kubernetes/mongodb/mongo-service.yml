@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service # Nama Layanan Kubernetes untuk MongoDB
+spec:
+  selector:
+    app: mongodb # Memilih pod dengan label 'app: mongodb'
+  ports:
+    - protocol: TCP # Menentukan protokol sebagai TCP
+      port: 27017     # Port yang digunakan pada Layanan
+      targetPort: 27017 # Port yang digunakan pada pod

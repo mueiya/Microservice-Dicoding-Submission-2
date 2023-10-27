@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-pv  # Nama Persistent Volume
+spec:
+  capacity:
+    storage: 10Gi  # Kapasitas penyimpanan yang dialokasikan
+  accessModes:
+    - ReadWriteOnce  # Mode akses: satu node pembaca-tulis
+  persistentVolumeReclaimPolicy: Retain  # Kebijakan pengembalian PV
+  storageClassName: manual
+  hostPath:
+    path: /data/mongo-pv  # Path direktori pada node fisik
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc  # Nama Persistent Volume Claim
+spec:
+  accessModes:
+    - ReadWriteOnce  # Mode akses: satu node pembaca-tulis
+  resources:
+    requests:
+      storage: 10Gi  # Permintaan kapasitas penyimpanan
+  storageClassName: manual  # Nama kelas penyimpanan yang sesuai dengan PV

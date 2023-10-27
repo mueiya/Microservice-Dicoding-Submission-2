@@ -1,0 +1,19 @@
+# versi pertama dari API Kubernetes
+apiVersion: v1
+# jenis resource, dalam hal ini adalah Service
+kind: Service
+metadata:
+# nama dari servicenya
+  name: karsajobs-ui-service
+# Labeling app karsajobs dan tier sebagai backend
+  labels:
+    app: karsajobs-ui
+    tier: frontend
+spec:
+  selector:
+    app: karsajobs-ui # Memilih pod dengan label 'app: karsajobs-ui'
+  ports:
+    - protocol: TCP # Menentukan protokol sebagai TCP
+      port: 80       # Port yang digunakan pada Layanan
+      targetPort: 80 # Port yang digunakan pada pod
+  type: LoadBalancer  # Jenis Layanan, dalam hal ini LoadBalancer
