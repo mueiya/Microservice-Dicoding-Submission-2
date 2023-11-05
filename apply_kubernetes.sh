@@ -7,7 +7,7 @@ NAMESPACE="karsajobs-app"
 
 # Apply the namespace
 echo "Applying namespace resources..."
-kubectl apply -f "$KUBE_DIR/namespace.yaml"
+kubectl apply -f "$KUBE_DIR/karsajobs-app-namespace.yaml"
 
 # Apply the MongoDB resources
 echo "Applying MongoDB resources..."
