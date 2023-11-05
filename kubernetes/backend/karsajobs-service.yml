@@ -20,5 +20,5 @@ spec:
     # set port untuk mendengarkan
       port: 8080
   # menggunakan NodePort
-      nodePort: 30007
+      nodePort: 30808
   type: NodePort

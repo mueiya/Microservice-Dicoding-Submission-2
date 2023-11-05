@@ -4,15 +4,17 @@ apiVersion: v1
 kind: Service
 metadata:
 # nama dari servicenya
-  name: karsajobs-ui-service
+  name: karsajobs-ui
 # Labeling app karsajobs dan tier sebagai backend
   labels:
-    app: karsajobs-ui
+    app: karsajobs
     tier: frontend
 spec:
   selector:
-    app: karsajobs-ui # Memilih pod dengan label 'app: karsajobs-ui'
+    app: karsajobs # Memilih pod dengan label 'app: karsajobs' dan 'tier: frontend'
+    tier: frontend
   ports:
     - protocol: TCP # Menentukan protokol sebagai TCP
-      port: 8080       # Port yang digunakan pada Layanan
-  type: NodePort  # Jenis Layanan, dalam hal ini LoadBalancer
+      port: 8000      # Port yang digunakan pada Layanan
+      targetPort: 8000  # Update to match the container port
+  type: NodePort  # Jenis Layanan, dalam hal ini NodePort
