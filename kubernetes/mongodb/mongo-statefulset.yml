@@ -20,9 +20,11 @@ spec:
     spec:
       containers:
         - name: mongo
-          image: mongo:latest
+          # 4.4 karena 5. butuh AVX dan AVX tidak support pada Virtualbox Hyper-v
+          # Dapat di set ke mongo:latest
+          image: mongo:4.4
           ports:
-            - containerPort: 27017
+            - containerPort: 27017 #port untuk mongodb
           #Atur semua environment variable yang dibutuhkan
           env:
             - name: MONGO_INITDB_ROOT_USERNAME_FILE
