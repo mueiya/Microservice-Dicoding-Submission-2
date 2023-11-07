@@ -1,3 +1,5 @@
+# Jika Menggunakan Namespace karena opsional
+# Gunakan namepace pada saat apply "-n karsajobs-app"
 apiVersion: v1
 kind: Namespace
 metadata:

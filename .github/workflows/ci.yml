@@ -33,7 +33,7 @@ jobs:
         run: go test -v -short --count=1 $(go list ./...)
 
       - name: Set up GitHub PAT
-        run: echo ${{ secrets.GITHUB_PAT }} > GITHUB_PAT
+        run: echo ${{ secrets.PAT_GITHUB }} > GITHUB_PAT
 
       - name: Build karsajobs image
         run: |
@@ -58,7 +58,7 @@ jobs:
         shell: bash
 
       - name: Set up GitHub PAT
-        run: echo ${{ secrets.GITHUB_PAT }} > GITHUB_PAT
+        run: echo ${{ secrets.PAT_GITHUB }} > GITHUB_PAT
 
       - name: Build karsajobs-ui image
         run: |
