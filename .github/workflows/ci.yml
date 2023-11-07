@@ -1,0 +1,35 @@
+name: CI for karsajobs
+
+on:
+  push:
+    branches:
+      - karsajobs
+
+jobs:
+  karsajobs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Run unit tests for karsajobs backend
+        run: go test -v -short --count=1 $(go list ./...)
+
+      - name: Set up GitHub PAT
+        run: echo ${{ secrets.PAT_GITHUB }} > GITHUB_PAT
+
+      - name: Build karsajobs image
+        run: |
+          export GITHUB_PAT=$(cat GITHUB_PAT)  # Set the environment variable
+          bash build_push_image_karsajobs.sh
