@@ -4,7 +4,7 @@ metadata:
   name: karsajobs-ui-deployment # Nama Deployment Kubernetes untuk karsajobs-ui
   labels: # Label yang didefinisikan untuk Deployment ini
     app: karsajobs # Label "app" dengan nilai "karsajobs"
-    tier: backend # Label "tier" dengan nilai "frontend"
+    tier: frontend # Label "tier" dengan nilai "frontend"
 spec:
   replicas: 1 # Jumlah replika yang diatur sesuai kebutuhan
   selector:
